@@ -8,4 +8,5 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_executable(stu
     main.cpp
+    args_parser.cpp
 )
