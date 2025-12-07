@@ -12,6 +12,7 @@ add_executable(stu
     main.cpp
     args_parser.cpp
     http_client.cpp
+    commands.cpp
 )
 
 target_link_libraries(stu PRIVATE CURL::libcurl)
