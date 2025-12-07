@@ -1,5 +1,5 @@
 #include "storage_service.hpp"
-#include "../data_access/data_access.hpp"
+#include "data_access/data_access.hpp"
 
 StorageService::StorageService(DataAccessLayer& dal_) : dal(dal_) {}
 
