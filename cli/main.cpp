@@ -1,6 +1,7 @@
 #include "args_parser.hpp"
 #include "commands.hpp"
 #include "http_client.hpp"
+#include <exception>
 #include <iostream>
 
 int main(int argc, char* argv[]) {
@@ -19,12 +20,17 @@ int main(int argc, char* argv[]) {
         return 0;
     }
 
-    HttpClient client;
+    try {
+        HttpClient client;
 
-    if (parsed.command == Save) {
-        return commandSave(parsed, client);
-    } else if (parsed.command == Read) {
-        return commandRead(parsed, client);
+        if (parsed.command == Save) {
+            return commandSave(parsed, client);
+        } else if (parsed.command == Read) {
+            return commandRead(parsed, client);
+        }
+    } catch (const std::exception& e) {
+        std::cerr << "Server error: " << e.what() << "\n";
+        return 1;
     }
 
     return 1;
