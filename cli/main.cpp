@@ -1,4 +1,6 @@
 #include "args_parser.hpp"
+#include "commands.hpp"
+#include "http_client.hpp"
 #include <iostream>
 
 int main(int argc, char* argv[]) {
@@ -15,12 +17,14 @@ int main(int argc, char* argv[]) {
     if (parsed.command == Help) {
         ArgsParser::printHelp(programName);
         return 0;
-    } else if (parsed.command == Save) {
-        std::cout << "Save command received. Text: " << parsed.text << "\n";
-        return 0;
+    }
+
+    HttpClient client;
+
+    if (parsed.command == Save) {
+        return commandSave(parsed, client);
     } else if (parsed.command == Read) {
-        std::cout << "Read command received\n";
-        return 0;
+        return commandRead(parsed, client);
     }
 
     return 1;
