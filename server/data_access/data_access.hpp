@@ -1,13 +1,13 @@
 #pragma once
 #include <string>
-#include <optional>
-#include "../service/storage_service.hpp" // Для StoredData
+#include <vector>
+#include "../service/storage_service.hpp" // Для Record
 
 class DataAccessLayer {
 public:
-    virtual ~DataAccessLayer() = default;
+    ~DataAccessLayer() = default;
 
-    virtual bool save(const std::string& key, const StoredData& data) = 0;
+    bool save(const std::string& key, const Record& data);
 
-    virtual std::optional<StoredData> load(const std::string& key) = 0;
+    std::vector<Record> load(const std::string& key);
 };
