@@ -4,10 +4,10 @@
 #include <ctime>
 #include <chrono>
 
-// Структура для хранения записи (пока без шифрования)
+// сохранения без шифрования
 struct Record {
-    std::string data;  // Данные как есть
-    time_t created_at; // Время создания (?уникальный ID записи)
+    std::string data; 
+    time_t created_at; // время создания(?уникальный ID записи)
 
     Record (const std::string& d, time_t t = 0) : data(d), created_at(t) {
         if (created_at == 0) {
