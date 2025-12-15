@@ -3,8 +3,8 @@
 
 int commandSave(const ParseResult& args, HttpClient& client) {
     try {
-        const std::string response = client.postSave(args.text);
-        std::cout << "Saved note. Server response:\n" << response << "\n";
+        const std::string response = client.postSave(args.text, args.ttlDays);
+        std::cout << "Saved note (ttl " << args.ttlDays << "d). Server response:\n" << response << "\n";
         return 0;
     } catch (const std::exception& e) {
         std::cerr << "Failed to save note: " << e.what() << "\n";
