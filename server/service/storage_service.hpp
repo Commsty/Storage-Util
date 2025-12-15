@@ -4,10 +4,9 @@
 #include <ctime>
 #include <chrono>
 
-// сохранения без шифрования
 struct Record {
     std::string data; 
-    time_t created_at; // время создания(?уникальный ID записи)
+    time_t created_at;
 
     Record (const std::string& d, time_t t = 0) : data(d), created_at(t) {
         if (created_at == 0) {
@@ -24,9 +23,7 @@ private:
 public:
     explicit StorageService(DataAccessLayer& dal_);
 
-    // addRecord добавляет запись с текстом data пользователю user_key(username, userid, или что либо ещё)
-    bool addRecord(const std::string& user_key, const std::string& data);
+    bool addRecord(const std::string& user_key, const std::string& data, time_t expires_at);
 
-    // getAllRecords возвращает все записи пользователя user_key
     std::vector<std::string> getAllRecords(const std::string& user_key);
 };
