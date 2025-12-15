@@ -10,6 +10,7 @@ enum CommandType {
 struct ParseResult {
     CommandType command{CommandType::Help};
     std::string text;
+    int ttlDays{7};
     std::string errorMessage;
     bool check() const { 
         return errorMessage.empty();
