@@ -4,12 +4,17 @@
 #include <fstream>
 #include <filesystem>
 #include <iostream>
+#include <chrono>
 
 using json = nlohmann::json;
 
 std::string JsonDataAccess::getFilePath(const std::string& user_key) const {
     // создаем data/users/user_key.json
     return data_dir + user_key + ".json";
+}
+
+std::vector<Record> JsonDataAccess::onlyLoad(const std::string& user_key) const {
+    
 }
 
 bool JsonDataAccess::save(const std::string& user_key, const Record& record) {
@@ -25,12 +30,12 @@ bool JsonDataAccess::save(const std::string& user_key, const Record& record) {
         for (const auto& rec : all_records) {
             json record_json;
             record_json["data"] = rec.data;
-            record_json["created_at"] = rec.created_at;  
+            record_json["expired_at"] = rec.expired_at;  
             j_array.push_back(record_json);
         }
         
         std::ofstream file(getFilePath(user_key));
-        file << j_array.dump(4); 
+        file << j_array.dump(4);
         return true;
         
     } catch (const std::exception& e) {
@@ -58,11 +63,14 @@ std::vector<Record> JsonDataAccess::load(const std::string& user_key) {
         json j_array;
         file >> j_array;
         
+        time_t now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
 
         for (const auto& item : j_array) {
             std::string data = item["data"];
-            time_t created_at = item["created_at"];
-            records.emplace_back(data, created_at);
+            time_t expired_at = item["expired_at"];
+            if (expired_at > now) {
+                records.emplace_back(data, expired_at);
+            }
         }
         
     } catch (const std::exception& e) {
