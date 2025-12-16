@@ -16,7 +16,7 @@ std::vector<std::string> StorageService::getAllRecords(const std::string& user_k
     time_t current_time = std::chrono::system_clock::to_time_t(now);
 
     for (const auto& rec : records) {
-        if (rec.created_at > current_time) {
+        if (rec.expires_at > current_time) {
             result.push_back(rec.data);
         }
     }

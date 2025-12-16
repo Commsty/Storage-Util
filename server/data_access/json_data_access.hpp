@@ -12,9 +12,9 @@ private:
     
     std::vector<Record> onlyLoad(const std::string& user_key) const;
 
-    bool onlySave(const std::string& user_key, std::vector<Record> records) const;
+    bool onlySave(const std::string& user_key, std::vector<Record>& records) const;
 
-    std::vector<Record> deleteExpired(std::vector<Record> records) const;
+    std::vector<Record> deleteExpired(std::vector<Record>& records) const;
 public:
     JsonDataAccess() = default;
     virtual ~JsonDataAccess() = default;
