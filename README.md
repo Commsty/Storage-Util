@@ -20,3 +20,15 @@ Http-клиент - это cli-утилита, которая позволяет
 Долгих Александр, 241
 Тагиров Ранель, 241
 Иванова Ева, 242
+
+## Сборка
+### Server
+cd server
+docker compose up --build -d
+
+### CLI-Client
+cd cli && mkdir build && cd build
+cmake ..
+make
+./stu --save --ttl "smth"
+./stu --read
