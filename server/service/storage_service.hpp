@@ -6,14 +6,9 @@
 
 struct Record {
     std::string data; 
-    time_t created_at;
+    time_t expires_at;
 
-    Record (const std::string& d, time_t t = 0) : data(d), created_at(t) {
-        if (created_at == 0) {
-            auto now = std::chrono::system_clock::now();
-            created_at = std::chrono::system_clock::to_time_t(now);
-        }
-    }
+    Record (const std::string& d, time_t t) : data(d), expires_at(t) {}
 };
 
 class StorageService {
